@@ -11,6 +11,8 @@ import type { ScoredWord, DifficultyLabel } from "./lib/nlpWorker";
 import NlpWorker from "./lib/nlpWorker?worker";
 import "./App.css";
 
+const logoUrl = `${import.meta.env.BASE_URL}logo.svg`;
+
 export interface FilterState {
   hideUnknown: boolean;       // hide "not in dictionary"
   hideLikelyNames: boolean;   // hide capitalisation-detected names
@@ -133,7 +135,7 @@ export default function App() {
       <header className="app__header">
         <div className="app__brand">
           <h1 className="app__title">
-            <img src="/logo.svg" alt="" className="app__logo" aria-hidden="true" />
+            <img src={logoUrl} alt="" className="app__logo" aria-hidden="true" />
             <span>Word Extract</span>
           </h1>
         </div>

@@ -14,8 +14,11 @@
   },
   "dependencies": {
     "compromise": "^14.15.0",
+    "epubjs": "^0.3.93",
     "gh-pages": "^6.3.0",
+    "jszip": "^3.10.1",
     "lucide-react": "^0.577.0",
+    "pdfjs-dist": "^5.5.207",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

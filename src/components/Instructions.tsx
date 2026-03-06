@@ -27,8 +27,8 @@ export default function Instructions() {
             <div className="modal__body">
               <h3>Step 1 — Upload your book</h3>
               <p>
-                Drag & drop a <strong>.txt</strong> file (or click to browse).
-                The app reads the file entirely in your browser — nothing is
+                Drag & drop a <strong>.txt</strong>, <strong>.pdf</strong>, or <strong>.epub</strong> file
+                (or click to browse). The app reads the file entirely in your browser — nothing is
                 uploaded to any server.
               </p>
 

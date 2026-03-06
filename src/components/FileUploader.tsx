@@ -64,7 +64,7 @@ export default function FileUploader({ onTextExtracted }: FileUploaderProps) {
       className={`dropzone ${dragging ? "dropzone--active" : ""}`}
       role="button"
       tabIndex={0}
-      aria-label="Upload a text file"
+      aria-label="Upload a text, PDF, or EPUB file"
       onClick={openPicker}
       onKeyDown={onKeyDown}
       onDrop={onDrop}
@@ -77,14 +77,14 @@ export default function FileUploader({ onTextExtracted }: FileUploaderProps) {
         <p className="dropzone__label">
           {loading
             ? "Reading file…"
-            : "Drag & drop a .txt file here, or click to browse"}
+            : "Drag & drop a .txt, .pdf, or .epub file here, or click to browse"}
         </p>
 
         <input
           ref={inputRef}
           className="dropzone__input"
           type="file"
-          accept=".txt,text/plain"
+          accept=".txt,.pdf,.epub,text/plain,application/pdf,application/epub+zip"
           onChange={onInputChange}
           disabled={loading}
         />

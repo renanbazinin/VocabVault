@@ -1,0 +1,58 @@
+/* ── Reset & Global ──────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Light mode (default) ────────────────────────────────────────────────── */
+:root {
+  --clr-bg: #f5f7f5;
+  --clr-surface: #ffffff;
+  --clr-surface-alt: #e8ece8;
+  --clr-border: #c5cfc5;
+  --clr-text: #1a2e1a;
+  --clr-text-muted: #5a6e5a;
+  --clr-accent: #44aa02;
+  --clr-accent-hover: #3d9902;
+  --clr-accent-light: rgba(68, 170, 2, 0.10);
+  --clr-danger: #dc3545;
+  --clr-badge: #e67e00;
+  --radius: 10px;
+
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--clr-text);
+  background: var(--clr-bg);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.25s, color 0.25s;
+}
+
+/* ── Dark mode ───────────────────────────────────────────────────────────── */
+:root.dark {
+  --clr-bg: #0e1a0e;
+  --clr-surface: #162016;
+  --clr-surface-alt: #243024;
+  --clr-border: #354a35;
+  --clr-text: #e4f0e4;
+  --clr-text-muted: #8faa8f;
+  --clr-accent: #5ecc1e;
+  --clr-accent-hover: #74e038;
+  --clr-accent-light: rgba(94, 204, 30, 0.10);
+  --clr-danger: #f87171;
+  --clr-badge: #fbbf24;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

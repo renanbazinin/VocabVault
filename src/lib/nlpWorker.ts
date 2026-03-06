@@ -9,10 +9,27 @@
  */
 
 import nlp from "compromise";
-import dictionary from "../dictionary.json";
+import dictionaryUrl from "../dictionary.json?url";
 import { COMMON_NAMES } from "./commonNames";
 
-const freq = dictionary as Record<string, number>;
+let freqPromise: Promise<Record<string, number>> | null = null;
+
+function loadDictionary(): Promise<Record<string, number>> {
+  if (!freqPromise) {
+    freqPromise = fetch(dictionaryUrl)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Dictionary download failed (${res.status})`);
+        }
+        return res.json() as Promise<Record<string, number>>;
+      })
+      .catch((err) => {
+        freqPromise = null;
+        throw err;
+      });
+  }
+  return freqPromise;
+}
 
 export type DifficultyLabel = "unknown" | "very rare" | "rare" | "uncommon" | "common";
 
@@ -144,7 +161,10 @@ function scanText(rawText: string): {
   return { occurrences, likelyNames };
 }
 
-function processAndScore(rawText: string): { words: string[]; scored: ScoredWord[] } {
+async function processAndScore(rawText: string): Promise<{ words: string[]; scored: ScoredWord[] }> {
+  self.postMessage({ type: "status", message: "Loading dictionary…" });
+  const freq = await loadDictionary();
+
   // ── 0. Single-pass scan for occurrences & name detection ────────────────
   self.postMessage({ type: "status", message: "Scanning text…" });
   const { occurrences, likelyNames } = scanText(rawText);
@@ -229,10 +249,10 @@ function processAndScore(rawText: string): { words: string[]; scored: ScoredWord
 
 // ── Listen for messages from main thread ──────────────────────────────────
 
-self.onmessage = (e: MessageEvent) => {
+self.onmessage = async (e: MessageEvent) => {
   if (e.data?.type === "process") {
     try {
-      const result = processAndScore(e.data.text);
+      const result = await processAndScore(e.data.text);
       self.postMessage({ type: "result", words: result.words, scored: result.scored });
     } catch (err) {
       self.postMessage({ type: "error", message: (err as Error).message });

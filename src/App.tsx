@@ -67,6 +67,20 @@ export default function App() {
     const worker = new NlpWorker();
     workerRef.current = worker;
 
+    worker.onerror = (event) => {
+      setStatusMsg(`Error: ${event.message || "analysis worker failed to load"}`);
+      setProcessing(false);
+      worker.terminate();
+      workerRef.current = null;
+    };
+
+    worker.onmessageerror = () => {
+      setStatusMsg("Error: failed to communicate with the analysis worker");
+      setProcessing(false);
+      worker.terminate();
+      workerRef.current = null;
+    };
+
     worker.onmessage = (e: MessageEvent) => {
       const data = e.data;
 
